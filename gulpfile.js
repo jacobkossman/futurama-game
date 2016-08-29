@@ -26,14 +26,14 @@ var paths = {
 
 // VENDOR
 
-gulp.task('vendor-fonts', function() {
-    return gulp.src([
-            'bower_components/font-awesome/fonts/fontawesome-webfont.*',
-            'bower_components/Ionicons/fonts/ionicons.*'
-        ])
-        .pipe(plugins.newer(paths.production.fonts))
-        .pipe(gulp.dest(paths.production.fonts));
-});
+// gulp.task('vendor-fonts', function() {
+//     return gulp.src([
+//             'bower_components/font-awesome/fonts/fontawesome-webfont.*',
+//             'bower_components/Ionicons/fonts/ionicons.*'
+//         ])
+//         .pipe(plugins.newer(paths.production.fonts))
+//         .pipe(gulp.dest(paths.production.fonts));
+// });
 
 gulp.task('vendor-js', function() {
     return gulp.src(plugins.mainBowerFiles('**/*.js'))
