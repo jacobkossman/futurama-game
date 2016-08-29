@@ -1,0 +1,20 @@
+$display-font: "Press Start 2P", cursive;
+$body-font: "Open Sans", sans-serif;
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Play:400,700|Press+Start+2P';
+
+$body-bg: #155F5E;
+
+body {
+  background-color: $body-bg;
+  font-family: $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $display-font;
+}
+
+.container {
+  margin: 0px auto;
+  max-width: 1000px;
+}
