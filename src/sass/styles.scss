@@ -4,17 +4,155 @@ $body-font: "Open Sans", sans-serif;
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Play:400,700|Press+Start+2P';
 
 $body-bg: #155F5E;
+$bg: #008BB8;
 
 body {
-  background-color: $body-bg;
-  font-family: $body-font;
+  background: url("../img/bg.jpg");
+  background-repeat: repeat-x;
+  font-family: $display-font;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  // animation: animatedBackground 5s linear infinite;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $display-font;
+  text-transform: uppercase;
+  margin: 0px;
 }
 
-.container {
-  margin: 0px auto;
-  max-width: 1000px;
+p {
+  line-height: 1.5em;
+}
+
+.score-box {
+  position: absolute;
+  text-align: center;
+  left: 50px;
+  top: 30px;
+
+  h2 {
+    margin-bottom: 0px;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+}
+
+.lives-box {
+  position: absolute;
+  text-align: center;
+  right: 50px;
+  top: 30px;
+
+  h2 {
+    margin-bottom: 0px;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+
+}
+
+#ship {
+  position: absolute;
+  top: 400px;
+  left: 50px;
+
+  img {
+    width: 250px;
+  }
+}
+
+.music-controls {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  line-height: 50px;
+  border-radius: 100px;
+  text-align: center;
+
+  .fa {
+    color: black;
+  }
+}
+
+#planet {
+  position: absolute;
+  left: 600px;
+  top: 200px;
+
+  img {
+    width: 200px;
+  }
+}
+
+#enemy {
+  position: absolute;
+  right: 300px;
+  bottom: 300px;
+
+  img {
+    width: 400px;
+  }
+}
+
+@-webkit-keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: -1920px 0; }
+}
+
+#level-2 {
+  background: url("../img/bg2.jpg") no-repeat fixed;
+  background-position: center bottom;
+  background-size: cover;
+  background-color: $bg;
+
+  ::selection {
+    background-color: black;
+    color: white;
+  }
+}
+
+#floor {
+  width: 100%;
+  height: 131px;
+  background: url("../img/floor.jpg") repeat-x;
+  position: absolute;
+  bottom: 0px;
+}
+
+#barrel {
+  position: absolute;
+  bottom: 131px;
+  left: 500px;
+  img {
+    width: 70px;
+  }
+}
+
+#beer {
+  position: absolute;
+  bottom: 131px;
+  left: 400px;
+}
+
+#bender {
+  position: absolute;
+  bottom: 131px;
+  left: 150px;
+}
+
+#cursing {
+  display: none;
+  color: red;
+  position: absolute;
+  bottom: 300px;
+  left: 250px;
 }

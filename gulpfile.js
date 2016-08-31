@@ -26,14 +26,14 @@ var paths = {
 
 // VENDOR
 
-// gulp.task('vendor-fonts', function() {
-//     return gulp.src([
-//             'bower_components/font-awesome/fonts/fontawesome-webfont.*',
-//             'bower_components/Ionicons/fonts/ionicons.*'
-//         ])
-//         .pipe(plugins.newer(paths.production.fonts))
-//         .pipe(gulp.dest(paths.production.fonts));
-// });
+gulp.task('vendor-fonts', function() {
+    return gulp.src([
+            'bower_components/font-awesome/fonts/fontawesome-webfont.*'
+            // 'bower_components/Ionicons/fonts/ionicons.*'
+        ])
+        .pipe(plugins.newer(paths.production.fonts))
+        .pipe(gulp.dest(paths.production.fonts));
+});
 
 gulp.task('vendor-js', function() {
     return gulp.src(plugins.mainBowerFiles('**/*.js'))
@@ -43,17 +43,17 @@ gulp.task('vendor-js', function() {
         .pipe(gulp.dest(paths.production.js));
 });
 
-// gulp.task('vendor-css', function() {
-//     return gulp.src(plugins.mainBowerFiles('**/*.{css,less}'))
-//         .pipe(plugins.newer(paths.production.css))
-//         .pipe(plugins.less())
-//         .pipe(plugins.sass())
-//         .pipe(plugins.concat('vendor.min.css'))
-//         .pipe(plugins.cleanCss({
-//             keepSpecialComments: 0
-//         }))
-//         .pipe(gulp.dest(paths.production.css));
-// });
+gulp.task('vendor-css', function() {
+    return gulp.src(plugins.mainBowerFiles('**/*.{css,less}'))
+        .pipe(plugins.newer(paths.production.css))
+        .pipe(plugins.less())
+        .pipe(plugins.sass())
+        .pipe(plugins.concat('vendor.min.css'))
+        .pipe(plugins.cleanCss({
+            keepSpecialComments: 0
+        }))
+        .pipe(gulp.dest(paths.production.css));
+});
 
 // AUTHOR
 
@@ -91,7 +91,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('images', function() {
-    return gulp.src(paths.dev.images + '**/**/*.{png,jpg,gif,svg}')
+    return gulp.src(paths.dev.images + '*.{png,jpg,gif,svg}')
         .pipe(plugins.newer(paths.production.images))
         .pipe(plugins.imagemin({
             progressive: true
@@ -116,4 +116,4 @@ gulp.task('watch', function() {
     gulp.watch('./src/fonts/*.{woff,svg,ttf,eot}', ['fonts']);
 });
 
-gulp.task('default', ['vendor-fonts', 'vendor-js', 'css', 'js', 'images', 'fonts']);
+gulp.task('default', ['vendor-js', 'css', 'js', 'images', 'fonts']);
