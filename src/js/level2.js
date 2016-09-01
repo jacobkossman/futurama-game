@@ -71,11 +71,6 @@ $(document).ready(function() {
         $el.attr("src", "assets/img/bending_standing.png");
     }
 
-    // 38 - up
-    // 40 - down
-    // 37 - left
-    // 39 - right
-
     $(document).bind('keydown', function(e) {
         if (e.keyCode == 38 || e.keyCode == 32 || e.keyCode == 87) { // up
             jump();
