@@ -1,6 +1,98 @@
 $(document).ready(function() {
+    var bgMusic = document.getElementById('bg-music'),
+        score = 0,
+        lives = 3;
+
+    bgMusic.volume = 0;
+    $(".music-controls").click(function() {
+        $(this).toggleClass('fa-pause-circle fa-play-circle')
+        if ($(this).hasClass('fa-pause-circle')) {
+            bgMusic.play();
+        } else {
+            bgMusic.pause();
+        }
+    });
+
+    $(".barrel").animate({
+        "left": "-200px"
+    }, 4000);
+
     var $el = $('#bender'),
         cssPosition = $el.css('position');
+
+    function getPositions(box) {
+        var $box = $(box);
+        var pos = $box.position();
+        var width = $box.width();
+        var height = $box.height();
+        return [
+            [pos.left, pos.left + width],
+            [pos.top, pos.top + height]
+        ];
+    }
+
+    function comparePositions(p1, p2) {
+        var x1 = p1[0] < p2[0] ? p1 : p2;
+        var x2 = p1[0] < p2[0] ? p2 : p1;
+        return x1[1] > x2[0] || x1[0] === x2[0] ? true : false;
+    }
+
+    function checkCollisions_beer() {
+        var obj = $(".beer")[0];
+        var pos = getPositions(obj);
+        var pos2 = getPositions("#bender");
+        var horizontalMatch = comparePositions(pos[0], pos2[0]);
+        var verticalMatch = comparePositions(pos[1], pos2[1]);
+        var match = horizontalMatch && verticalMatch;
+        if (match && ($(obj).is(":visible") || $(obj).find(".plus").is(":hidden"))) {
+            $(obj).find('.plus').animate({
+                "opacity": "1",
+                "margin-bottom": "30px"
+            }, 200).animate({
+                    "opacity": "0"
+                }, 500,
+                function() {
+                    $(obj).animate({
+                        "opacity": "0"
+                    }, 400);
+                    $(obj).hide();
+                });
+            score++;
+            $("#hundreds").html(score);
+        }
+    }
+
+    function checkCollisions_barrel() {
+        var obj = $(".barrel")[0];
+        var pos = getPositions(obj);
+        var pos2 = getPositions("#bender");
+        var horizontalMatch = comparePositions(pos[0], pos2[0]);
+        var verticalMatch = comparePositions(pos[1], pos2[1]);
+        var match = horizontalMatch && verticalMatch;
+        // console.log(match);
+        if (match && $("#bender").attr('src') !== "assets/img/bender_angry.png") {
+            angry();
+            if (lives > 0) {
+                resetGame();
+                lives--;
+                // console.log(lives);
+                $(".lives-box h3").html(lives);
+            } else {
+                gameOver();
+            }
+        }
+
+    }
+
+    function resetGame() {
+        $("#bender").css({
+            "left": "100px"
+        });
+    }
+
+    function gameOver() {
+        console.log("game over");
+    }
 
     function angry() {
         if ($el.attr('src') == "assets/img/bender_standing-left.png") {
@@ -14,13 +106,11 @@ $(document).ready(function() {
         $el
             .queue(function(next) {
                 $(this).attr('src', imgSrc);
-                $("#cursing").show();
                 next();
             })
             .delay(500)
             .queue(function(next) {
                 $(this).attr('src', standing);
-                $("#cursing").hide();
                 next();
             });
     }
@@ -38,30 +128,41 @@ $(document).ready(function() {
                 standing = "assets/img/bender_standing.png";
         }
 
-        $el.attr("src", imgSrc).animate({
-            "bottom": "251px"
+        $el.attr("src", imgSrc).stop(true).animate({
+            "bottom": "271px"
         }, 400, function() {
             $(this).attr("src", standing);
-        }).animate({
+        }).delay(100).animate({
             "bottom": "131px"
         }, 400);
     }
 
     function walkLeft() {
-        var offset = $el.offset();
+        var offset = $el.offset(),
+            bottom = $(window).height() - $el.height(),
+            bottom = bottom - offset.top;
 
-        $el.attr("src", "assets/img/bender_left.png").animate({
-            "left": offset.left - 75
+        if (bottom > 131) {
+            console.log("put me down!");
+            $el.animate({
+                "bottom": "131px"
+            });
+        }
+
+        $el.attr("src", "assets/img/bender_left.png").stop(true).animate({
+            "left": "-=50px"
         }, 400, function() {
+            checkCollisions_beer();
             $(this).attr("src", "assets/img/bender_standing-left.png");
         });
     }
 
     function walkRight() {
         var offset = $el.offset();
-        $el.attr("src", "assets/img/bender_right.png").animate({
-            "left": offset.left + 75
+        $el.attr("src", "assets/img/bender_right.png").stop(true).animate({
+            "left": "+=50px"
         }, 400, function() {
+            checkCollisions_beer();
             $(this).attr("src", "assets/img/bender_standing.png");
         });
 
@@ -88,4 +189,9 @@ $(document).ready(function() {
             angry();
         }
     });
+
+    setInterval(function() {
+        checkCollisions_barrel();
+    }, 250);
+
 });

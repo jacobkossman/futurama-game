@@ -12,25 +12,34 @@
 
         <div class="score-box">
             <h2>score</h2>
-            <h3>0000</h3>
+            <h3>0<span id="hundreds">0</span>00</h3>
         </div>
         <div class="lives-box">
             <h2>Lives</h2>
             <h3>3</h3>
         </div>
-        <div id="beer">
+        <div class="beer">
+            <div class="plus">+100</div>
             <img src="assets/img/beer.png" alt="">
         </div>
-        <div id="barrel">
+        <div class="barrel">
             <img src="assets/img/barrel.png" alt="">
         </div>
         <div id="bender-box">
             <img src="assets/img/bender_standing.png" id="bender" alt="">
-            <p id="cursing">#$!%</p>
         </div>
         <div id="floor"></div>
 
-        <i class="fa fa-pause-circle fa-play-circle fa-3x music-controls"></i>
+        <i class="fa fa-pause-circle fa-3x music-controls"></i>
+
+        <audio id="bg-music" autoplay loop>
+          <source src="assets/audio/bg_music.mp3" type="audio/mpeg">
+          <source src="assets/audio/bg_music.ogg" type="audio/ogg">
+          <!-- fallback for non supporting browsers goes here -->
+          <p>Your browser does not support HTML5 audio, but you can still
+             <a href="assets/audio/bg_music.mp3">download the music</a>.</p>
+        </audio>
+
         <script src="assets/js/vendor.min.js" charset="utf-8"></script>
         <script src="assets/js/level2.min.js" charset="utf-8"></script>
     </body>

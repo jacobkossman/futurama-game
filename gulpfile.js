@@ -14,13 +14,15 @@ var paths = {
         'js': './src/js/',
         'vendor': './src/vendor/',
         'images': './src/img/',
-        'fonts': './src/fonts/'
+        'fonts': './src/fonts/',
+        'audio': './src/audio/'
     },
     'production': {
         'css': './assets/css/',
         'js': './assets/js/',
         'fonts': './assets/fonts/',
-        'images': './assets/img/'
+        'images': './assets/img/',
+        'audio': './assets/audio/'
     }
 };
 
@@ -66,6 +68,7 @@ gulp.task('css', function() {
                 this.emit('end');
             }
         ))
+        .pipe(plugins.sassGlob())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
         .pipe(plugins.cleanCss({
@@ -101,6 +104,11 @@ gulp.task('images', function() {
             message: 'Images task complete',
             onLast: true
         }));
+});
+
+gulp.task('audio', function() {
+    return gulp.src(paths.dev.audio + '*.{mp3,ogg}')
+        .pipe(gulp.dest(paths.production.audio));
 });
 
 gulp.task('fonts', function() {
