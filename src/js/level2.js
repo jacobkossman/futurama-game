@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     $(".barrel").animate({
         "left": "-200px"
-    }, 4000);
+    }, 3000);
 
     var $el = $('#bender'),
         cssPosition = $el.css('position');
@@ -115,6 +115,15 @@ $(document).ready(function() {
             });
     }
 
+
+    function checkHeight(bottom) {
+        if (bottom > 131) {
+            $el.animate({
+                "bottom": "131px"
+            }, 500);
+        }
+    }
+
     function jump() {
         var offset = $el.offset(),
             bottom = $(window).height() - $el.height(),
@@ -129,7 +138,7 @@ $(document).ready(function() {
         }
 
         $el.attr("src", imgSrc).stop(true).animate({
-            "bottom": "271px"
+            "bottom": "300px"
         }, 400, function() {
             $(this).attr("src", standing);
         }).delay(100).animate({
@@ -142,14 +151,9 @@ $(document).ready(function() {
             bottom = $(window).height() - $el.height(),
             bottom = bottom - offset.top;
 
-        if (bottom > 131) {
-            console.log("put me down!");
-            $el.animate({
-                "bottom": "131px"
-            });
-        }
+        checkHeight(bottom);
 
-        $el.attr("src", "assets/img/bender_left.png").stop(true).animate({
+        $el.attr("src", "assets/img/bender_left.png").animate({
             "left": "-=50px"
         }, 400, function() {
             checkCollisions_beer();
@@ -158,8 +162,13 @@ $(document).ready(function() {
     }
 
     function walkRight() {
-        var offset = $el.offset();
-        $el.attr("src", "assets/img/bender_right.png").stop(true).animate({
+        var offset = $el.offset(),
+            bottom = $(window).height() - $el.height(),
+            bottom = bottom - offset.top;
+
+        checkHeight(bottom);
+
+        $el.attr("src", "assets/img/bender_right.png").animate({
             "left": "+=50px"
         }, 400, function() {
             checkCollisions_beer();
