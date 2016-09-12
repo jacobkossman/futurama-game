@@ -6,7 +6,7 @@ $(document).ready(function() {
         cssPosition = $el.css('position'),
         playing = false;
 
-    bgMusic.volume = 0;
+    bgMusic.volume = 0.4;
 
     function resetGame() {
         $(".barrel").css({
