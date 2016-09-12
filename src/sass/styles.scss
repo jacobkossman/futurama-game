@@ -1,183 +1,293 @@
 $display-font: "Press Start 2P", cursive;
 $body-font: "Open Sans", sans-serif;
-
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Play:400,700|Press+Start+2P';
-
 @import 'partials/*.scss';
 
 $body-bg: #155F5E;
 $bg: #008BB8;
+$light-blue: #42E8F5;
 
 body {
-  background: url("../img/bg.jpg");
-  background-repeat: repeat-x;
-  font-family: $display-font;
-  color: white;
-  padding: 0px;
-  margin: 0px;
-  overflow: hidden;
-  // animation: animatedBackground 5s linear infinite;
-  &#about {
-    background: none;
-    background-color: $body-bg;
-  }
+    background: url("../img/bg.jpg");
+    background-repeat: repeat-x;
+    font-family: $display-font;
+    color: white;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    // animation: animatedBackground 5s linear infinite;
+    &#about {
+        background: url("../img/aboutbg.jpg");
+        background-repeat: repeat-x;
+        overflow: auto;
+        background-color: $body-bg;
+    }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $display-font;
-  text-transform: uppercase;
-  margin: 0px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $display-font;
+    text-transform: uppercase;
+    margin: 0;
 }
 
 p {
-  line-height: 1.5em;
+    line-height: 2.2em;
+}
+
+[class^="grid-"] {
+    float: left;
+}
+
+.grid-25 {
+    width: 25%;
+}
+
+.grid-50 {
+    width: 50%;
+}
+
+.grid-75 {
+    width: 75%;
+}
+
+.grid-100 {
+    width: 100%;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.spacer {
+    height: 40px;
 }
 
 .score-box {
-  position: absolute;
-  text-align: center;
-  left: 50px;
-  top: 30px;
+    position: absolute;
+    text-align: center;
+    left: 50px;
+    top: 30px;
 
-  h2 {
-    margin-bottom: 0px;
-  }
+    h2 {
+        margin-bottom: 0;
+    }
 
-  h3 {
-    margin-top: 10px;
-  }
+    h3 {
+        margin-top: 10px;
+    }
 }
 
 .lives-box {
-  position: absolute;
-  text-align: center;
-  right: 50px;
-  top: 30px;
+    position: absolute;
+    text-align: center;
+    right: 50px;
+    top: 30px;
 
-  h2 {
-    margin-bottom: 0px;
-  }
+    h2 {
+        margin-bottom: 0;
+    }
 
-  h3 {
-    margin-top: 10px;
-  }
+    h3 {
+        margin-top: 10px;
+    }
 
 }
 
 #ship {
-  position: absolute;
-  top: 400px;
-  left: 50px;
+    position: absolute;
+    top: 400px;
+    left: 50px;
 
-  img {
-    width: 250px;
-  }
+    img {
+        width: 250px;
+    }
 }
 
 .music-controls {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  line-height: 50px;
-  border-radius: 100px;
-  text-align: center;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    line-height: 50px;
+    border-radius: 100px;
+    text-align: center;
 
-  .fa {
-    color: black;
-  }
+    .fa {
+        color: black;
+    }
 }
 
 #planet {
-  position: absolute;
-  left: 600px;
-  top: 200px;
+    position: absolute;
+    left: 600px;
+    top: 200px;
 
-  img {
-    width: 200px;
-  }
+    img {
+        width: 200px;
+    }
 }
 
 #enemy {
-  position: absolute;
-  right: 300px;
-  bottom: 300px;
+    position: absolute;
+    right: 300px;
+    bottom: 300px;
 
-  img {
-    width: 400px;
-  }
-}
-
-@-webkit-keyframes animatedBackground {
-    from { background-position: 0 0; }
-    to { background-position: -1920px 0; }
+    img {
+        width: 400px;
+    }
 }
 
 #level-2 {
-  background: url("../img/bg2.jpg") no-repeat fixed;
-  background-position: center bottom;
-  background-size: cover;
-  background-color: $bg;
+    background: url("../img/bg2.jpg") no-repeat fixed;
+    background-position: center bottom;
+    background-size: cover;
+    background-color: $bg;
 
-  ::selection {
-    background-color: black;
-    color: white;
-  }
+    ::selection {
+        background-color: black;
+        color: white;
+    }
 }
 
 #floor {
-  width: 100%;
-  height: 131px;
-  background: url("../img/floor.jpg") repeat-x;
-  position: absolute;
-  bottom: 0px;
+    width: 100%;
+    height: 131px;
+    background: url("../img/floor.jpg") repeat-x;
+    position: absolute;
+    bottom: 0;
 }
 
-.barrel, .beer, .plus {
-  z-index: 30;
+.barrel,
+.beer,
+.plus {
+    z-index: 30;
 }
 
 #bender {
-  z-index: 20;
+    z-index: 20;
 }
+
 .barrel {
-  position: absolute;
-  bottom: 131px;
-  left: 700px;
-  img {
-    width: 70px;
-  }
-  animation: rotating 1s linear infinite;
+    position: absolute;
+    bottom: 131px;
+    left: 700px;
+
+    img {
+        width: 70px;
+    }
+    animation: rotating 1s linear infinite;
 }
 
 .beer {
-  position: absolute;
-  bottom: 131px;
-  left: 400px;
+    position: absolute;
+    bottom: 131px;
+    left: 400px;
 }
 
 .plus {
-  opacity: 0;
-  margin-bottom: 10px;
-  color: black;
+    opacity: 0;
+    margin-bottom: 10px;
+    color: black;
 }
 
 #bender {
-  position: absolute;
-  bottom: 131px;
-  left: 150px;
+    position: absolute;
+    bottom: 131px;
+    left: 150px;
+}
+
+#bender-byte {
+    img {
+        position: relative;
+        left: 15px;
+    }
 }
 
 #cursing {
-  display: none;
-  color: red;
-  position: absolute;
-  bottom: 300px;
-  left: 250px;
+    display: none;
+    color: red;
+    position: absolute;
+    bottom: 300px;
+    left: 250px;
 }
 
 .container {
-  width: 1000px;
-  margin: 0px auto;
+    margin: 0 auto;
+    max-width: 1000px;
+    background-color: $body-bg;
+}
+
+#built-with {
+    color: black;
+    text-align: center;
+
+    img {
+        float: left;
+        @extend .responsive;
+
+        &:last-child {
+            float: right;
+        }
+    }
+
+    h1 {
+        display: inline-block;
+        position: relative;
+        top: -73px;
+    }
+}
+
+#technology {
+    text-align: center;
+    margin-bottom: 20px;
+
+    img {
+        @extend .responsive;
+    }
+
+    #jquery {
+        position: relative;
+        top: 40px;
+    }
+
+}
+
+#built-credit {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+footer {
+    max-height: 180px;
+    text-align: center;
+    margin-top: 70px;
+    background-color: $light-blue;
+
+    .credit {
+        position: relative;
+        top: -137px;
+        color: black;
+
+        h1 {
+            margin-top: 15px;
+            color: $body-bg;
+        }
+    }
+
+    img {
+        position: relative;
+        top: -40px;
+        transform: rotate(45);
+    }
 }

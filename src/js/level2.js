@@ -1,9 +1,12 @@
 $(document).ready(function() {
     var bgMusic = document.getElementById('bg-music'),
         score = 0,
-        lives = 3;
+        lives = 3,
+        $el = $('#bender'),
+        cssPosition = $el.css('position');
 
     bgMusic.volume = 0;
+
     $(".music-controls").click(function() {
         $(this).toggleClass('fa-pause-circle fa-play-circle')
         if ($(this).hasClass('fa-pause-circle')) {
@@ -16,9 +19,6 @@ $(document).ready(function() {
     $(".barrel").animate({
         "left": "-200px"
     }, 3000);
-
-    var $el = $('#bender'),
-        cssPosition = $el.css('position');
 
     function getPositions(box) {
         var $box = $(box);
@@ -38,12 +38,13 @@ $(document).ready(function() {
     }
 
     function checkCollisions_beer() {
-        var obj = $(".beer")[0];
-        var pos = getPositions(obj);
-        var pos2 = getPositions("#bender");
-        var horizontalMatch = comparePositions(pos[0], pos2[0]);
-        var verticalMatch = comparePositions(pos[1], pos2[1]);
-        var match = horizontalMatch && verticalMatch;
+        var obj = $(".beer")[0],
+            pos = getPositions(obj),
+            pos2 = getPositions("#bender"),
+            horizontalMatch = comparePositions(pos[0], pos2[0]),
+            verticalMatch = comparePositions(pos[1], pos2[1]),
+            match = horizontalMatch && verticalMatch;
+
         if (match && ($(obj).is(":visible") || $(obj).find(".plus").is(":hidden"))) {
             $(obj).find('.plus').animate({
                 "opacity": "1",
@@ -63,19 +64,18 @@ $(document).ready(function() {
     }
 
     function checkCollisions_barrel() {
-        var obj = $(".barrel")[0];
-        var pos = getPositions(obj);
-        var pos2 = getPositions("#bender");
-        var horizontalMatch = comparePositions(pos[0], pos2[0]);
-        var verticalMatch = comparePositions(pos[1], pos2[1]);
-        var match = horizontalMatch && verticalMatch;
-        // console.log(match);
+        var obj = $(".barrel")[0],
+            pos = getPositions(obj),
+            pos2 = getPositions("#bender"),
+            horizontalMatch = comparePositions(pos[0], pos2[0]),
+            verticalMatch = comparePositions(pos[1], pos2[1]),
+            match = horizontalMatch && verticalMatch;
+
         if (match && $("#bender").attr('src') !== "assets/img/bender_angry.png") {
             angry();
             if (lives > 0) {
                 resetGame();
                 lives--;
-                // console.log(lives);
                 $(".lives-box h3").html(lives);
             } else {
                 gameOver();
@@ -151,14 +151,15 @@ $(document).ready(function() {
             bottom = $(window).height() - $el.height(),
             bottom = bottom - offset.top;
 
-        checkHeight(bottom);
 
-        $el.attr("src", "assets/img/bender_left.png").animate({
+        $el.attr("src", "assets/img/bender_left.png").stop(true).animate({
             "left": "-=50px"
         }, 400, function() {
             checkCollisions_beer();
             $(this).attr("src", "assets/img/bender_standing-left.png");
         });
+
+        checkHeight(bottom);
     }
 
     function walkRight() {
@@ -166,15 +167,14 @@ $(document).ready(function() {
             bottom = $(window).height() - $el.height(),
             bottom = bottom - offset.top;
 
-        checkHeight(bottom);
-
-        $el.attr("src", "assets/img/bender_right.png").animate({
+        $el.attr("src", "assets/img/bender_right.png").stop().animate({
             "left": "+=50px"
         }, 400, function() {
             checkCollisions_beer();
             $(this).attr("src", "assets/img/bender_standing.png");
         });
 
+        checkHeight(bottom);
     }
 
     function idle() {
@@ -182,19 +182,19 @@ $(document).ready(function() {
     }
 
     $(document).bind('keydown', function(e) {
-        if (e.keyCode == 38 || e.keyCode == 32 || e.keyCode == 87) { // up
+        if (e.keyCode == 38 || e.keyCode == 32 || e.keyCode == 87) { // up, spacebar, w
             jump();
         }
 
-        if (e.keyCode == 37 || e.keyCode == 65) { // left
+        if (e.keyCode == 37 || e.keyCode == 65) { // left, a
             walkLeft();
         }
 
-        if (e.keyCode == 39 || e.keyCode == 68) { // right
+        if (e.keyCode == 39 || e.keyCode == 68) { // right, d
             walkRight();
         }
 
-        if (e.keyCode == 40 || e.keyCode == 83) { // down
+        if (e.keyCode == 40 || e.keyCode == 83) { // down, s
             angry();
         }
     });

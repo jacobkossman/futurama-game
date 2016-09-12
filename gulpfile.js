@@ -118,7 +118,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/sass/*.scss', ['css']);
+    gulp.watch('src/sass/**/*.scss', ['css']);
     gulp.watch('src/js/*.js', ['js']);
     gulp.watch('src/img/*.{png,jpg,gif}', ['images']);
     gulp.watch('./src/fonts/*.{woff,svg,ttf,eot}', ['fonts']);
