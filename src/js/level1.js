@@ -1,12 +1,15 @@
 $(document).ready(function() {
-    var $el = $('#ship'),
+    var bgMusic = document.getElementById('bg-music'),
+        $el = $('#ship'),
         cssPosition = $el.css('position');
+
+    bgMusic.volume = 0.4;
 
     function moveUp() {
         var offset = $el.offset();
 
         $el.css({
-            "top": "350px"
+            "top": "-=50px"
         }, 500)
     };
 
@@ -14,7 +17,7 @@ $(document).ready(function() {
         var offset = $el.offset();
 
         $el.css({
-            "top": "450px"
+            "top": "+=50px"
         }, 500)
     };
 
@@ -22,7 +25,7 @@ $(document).ready(function() {
         var offset = $el.offset();
 
         $el.css({
-            "left": "100px"
+            "left": "+=50px"
         }, 500)
     };
 
@@ -30,7 +33,7 @@ $(document).ready(function() {
         var offset = $el.offset();
 
         $el.css({
-            "left": "0px"
+            "left": "-=50px"
         }, 500)
     };
 
