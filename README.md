@@ -15,7 +15,7 @@ Level 2
 - [ ] enemy?
 - [ ] scrolling
 - [ ] lives bug (counts too fast?)
-- [ ] game over message
+- [x] game over message
 - [ ] pause game?
-- [ ] get ready!
-- [ ] lost life animation (blinking / fading)
+- [x] get ready!
+- [x] lost life animation (blinking / fading)

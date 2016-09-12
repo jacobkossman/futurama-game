@@ -124,4 +124,4 @@ gulp.task('watch', function() {
     gulp.watch('./src/fonts/*.{woff,svg,ttf,eot}', ['fonts']);
 });
 
-gulp.task('default', ['vendor-js', 'css', 'js', 'images', 'fonts']);
+gulp.task('default', ['vendor-css', 'vendor-js', 'css', 'js', 'images', 'fonts', 'audio']);
