@@ -5,8 +5,9 @@
 Level 1
 
 - [ ] collision handling
-- [ ] spacebar (rising / falling?)
-- [ ] shooting lazerz!
+- ~~[ ] spacebar (rising / falling?)~~ spacebar fires
+- [x] shooting lazerz!
+- [ ] randomized placement of new obstacles
 
 Level 2
 

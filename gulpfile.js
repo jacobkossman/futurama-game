@@ -41,7 +41,7 @@ gulp.task('vendor-js', function() {
     return gulp.src(plugins.mainBowerFiles('**/*.js'))
         .pipe(plugins.newer(paths.production.js))
         .pipe(plugins.concat('vendor.min.js'))
-        .pipe(plugins.uglify())
+        // .pipe(plugins.uglify())
         .pipe(gulp.dest(paths.production.js));
 });
 
@@ -71,9 +71,9 @@ gulp.task('css', function() {
         .pipe(plugins.sassGlob())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
-        .pipe(plugins.cleanCss({
-            keepSpecialComments: 0
-        }))
+        // .pipe(plugins.cleanCss({
+        //     keepSpecialComments: 0
+        // }))
         .pipe(plugins.rename({
             suffix: '.min'
         }))
@@ -88,7 +88,7 @@ gulp.task('js', function() {
         .pipe(plugins.rename({
             suffix: '.min'
         }))
-        .pipe(plugins.uglify())
+        // .pipe(plugins.uglify())
         .pipe(gulp.dest(paths.production.js))
         .pipe(plugins.notify("JS compilation successful!"));
 });

@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Future Challenge 3000</title>
+        <link rel="stylesheet" href="assets/css/vendor.min.css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="assets/css/author.min.css" media="screen" charset="utf-8">
     </head>
 
@@ -11,18 +12,19 @@
 
         <div class="score-box">
             <h2>score</h2>
-            <h3>0000</h3>
+            <h3>0<span id="hundreds">0</span>00</h3>
         </div>
         <div class="lives-box">
             <h2>Lives</h2>
             <h3>3</h3>
         </div>
-        <i class="fa fa-pause-circle fa-play-circle fa-3x music-controls"></i>
-        <div id="ship">
-            <img src="assets/img/ship.png">
-        </div>
-        <div id="planet"><img src="assets/img/planet.png"></div>
-        <div id="enemy"><img src="assets/img/omicronian.png"></div>
+        <img src="assets/img/ship.png" id="ship">
+        <div class="lazer"></div>
+        <img src="assets/img/planet.png" id="planet">
+        <img src="assets/img/planet.png" id="planet2">
+        <img src="assets/img/omicronian.png" id="enemy">
+
+        <i class="fa fa-pause-circle fa-3x music-controls"></i>
 
         <audio id="bg-music" autoplay loop>
           <source src="assets/audio/themesong.mp3" type="audio/mpeg">

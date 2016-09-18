@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var bgMusic = document.getElementById('bg-music'),
         score = 0,
-        lives = 1,
+        lives = 3,
         $el = $('#bender'),
         cssPosition = $el.css('position'),
         playing = false;
@@ -20,7 +20,10 @@ $(document).ready(function() {
         });
         $(".shade, #game-over").hide();
 
+        lives = 3;
         playing = true;
+
+        $(".lives-box h3").html(lives);
 
         init();
     }
@@ -82,7 +85,7 @@ $(document).ready(function() {
                         $(obj).hide();
                     });
                 score++;
-                $("#hundreds").html(score);
+                $("#level-2 #hundreds").html(score);
             }
         }
 
@@ -98,6 +101,7 @@ $(document).ready(function() {
                 angry();
                 if (lives > 1) {
                     lifeLost();
+                    $(".barrel").destroy();
                 } else {
                     lives = 0;
                     $(".lives-box h3").html(lives);
@@ -242,6 +246,14 @@ $(document).ready(function() {
 
 
     $(document).bind('keydown', function(e) {
+        if (e.keyCode == 77) { // m
+            if (bgMusic.volume == 0) {
+                bgMusic.volume = 0.4;
+            } else {
+                bgMusic.volume = 0;
+            }
+        }
+
         if (!playing) {
             if (e.keyCode == 80) { // p
                 init();
