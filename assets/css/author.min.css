@@ -327,3 +327,20 @@ footer {
 
 #you-won {
   display: none; }
+
+#play {
+  text-transform: uppercase;
+  position: absolute;
+  left: 110px;
+  top: 550px;
+  color: white; }
+  #play a {
+    font-size: 2.5em;
+    padding: 30px 30px 30px 45px;
+    color: white;
+    text-decoration: none;
+    background-color: #155F5E;
+    -webkit-transition: background-color 350ms linear;
+    transition: background-color 350ms linear; }
+    #play a:hover {
+      background-color: #104a49; }
