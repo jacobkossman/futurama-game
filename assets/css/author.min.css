@@ -50,6 +50,9 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden; }
+  body#level-one {
+    -webkit-animation: animatedBackground 5s linear infinite;
+            animation: animatedBackground 5s linear infinite; }
   body#about {
     background: url("../img/aboutbg.jpg");
     background-repeat: repeat-x;
