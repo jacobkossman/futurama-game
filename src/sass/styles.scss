@@ -380,23 +380,23 @@ footer {
     display: none;
 }
 
-// #play {
-//     text-transform: uppercase;
-//     position: absolute;
-//     left: 110px;
-//     top: 550px;
-//     color: white;
-//
-//     a {
-//         font-size: 2.5em;
-//         padding: 30px 30px 30px 45px;
-//         color: white;
-//         text-decoration: none;
-//         background-color: $body-bg;
-//         transition: background-color 350ms linear;
-//
-//         &:hover {
-//             background-color: darken($body-bg, 5%);
-//         }
-//     }
-// }
+#play {
+    text-transform: uppercase;
+    position: absolute;
+    left: 110px;
+    top: 550px;
+    color: white;
+
+    a {
+        font-size: 2.5em;
+        padding: 30px 30px 30px 45px;
+        color: white;
+        text-decoration: none;
+        background-color: $body-bg;
+        transition: background-color 350ms linear;
+
+        &:hover {
+            background-color: darken($body-bg, 5%);
+        }
+    }
+}
