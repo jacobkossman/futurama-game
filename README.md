@@ -4,10 +4,12 @@
 
 Level 1
 
-- [ ] collision handling
-- ~~[ ] spacebar (rising / falling?)~~ spacebar fires
+- [x] collision handling
+- ~~spacebar (rising / falling?)~~ spacebar fires
 - [x] shooting lazerz!
 - [ ] randomized placement of new obstacles
+- [x] you won
+- [x] game over
 
 Level 2
 
@@ -15,8 +17,9 @@ Level 2
 - [x] collision detection
 - [ ] enemy?
 - [ ] scrolling
-- [ ] lives bug (counts too fast?)
+- [x] lives bug (counts too fast?)
 - [x] game over message
 - [ ] pause game?
 - [x] get ready!
 - [x] lost life animation (blinking / fading)
+- [x] randomized beer!
