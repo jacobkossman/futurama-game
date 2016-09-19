@@ -3,13 +3,49 @@ var bgMusic = document.getElementById('bg-music'),
     lives = 3,
     $el = $('#ship'),
     cssPosition = $el.css('position'),
-    playing = false;
+    playing = false,
+    won = false;
 
-bgMusic.volume = 0;
+bgMusic.volume = 0.4;
 
 $(document).ready(function() {
 
+    function resetGame() {
+
+        $("#play-game, #game-over, #you-won").hide();
+
+        $("#ship").attr('src', 'assets/img/ship.png')
+        $("#planet").css({
+            "right": "400px",
+            "left": ""
+        }).attr('src', 'assets/img/planet.png').show();
+        $("#planet2").css({
+            "right": "-800px",
+            "left": ""
+        }).attr('src', 'assets/img/planet.png').show();
+        $("#enemy").css({
+            "right": "200px",
+            "left": ""
+        }).attr('src', 'assets/img/omicronian.png').show();
+
+        lives = 3;
+        score = 0;
+
+        init();
+    }
+
     function init() {
+
+        playing = true;
+
+        $(".shade, #play-game, #game-over, #you-won").hide();
+
+        setInterval(function() {
+            if (playing && !won) {
+                gameOver();
+            }
+        }, 9000);
+
         function lifeLost() {
             lives--;
             $(".lives-box h3").html(lives);
@@ -51,7 +87,25 @@ $(document).ready(function() {
 
             if (match) {
                 deadExplosion("#ship");
+                if (lives > 1) {
+                    lifeLost();
+                } else {
+                    lives = 0;
+                    $(".lives-box h3").html(lives);
+                    gameOver();
+                }
             }
+        }
+
+        function gameOver() {
+            playing = false;
+            $(".shade, #game-over").show();
+        }
+
+        function youWon() {
+            playing = false;
+            won = true;
+            $(".shade, #you-won").show();
         }
 
         function checkCollisions_lazer(el) {
@@ -154,8 +208,12 @@ $(document).ready(function() {
             score++;
             $("#level-one #hundreds").html(score);
 
+            if (score == 3) {
+                youWon();
+            }
+
             setTimeout(function() {
-                $(el).remove();
+                $(el).hide();
             }, 500);
 
         };
@@ -218,35 +276,56 @@ $(document).ready(function() {
 
         // keyboard shortcuts
 
-        $(document).bind('keydown', function(e) {
-            if (e.keyCode == 77) { // m
-                if (bgMusic.volume == 0) {
-                    bgMusic.volume = 0.4;
+        if (playing) {
+            $(document).bind('keydown', function(e) {
+                if (e.keyCode == 38 || e.keyCode == 87) { // up, w
+                    moveUp();
+                }
+
+                if (e.keyCode == 40 || e.keyCode == 83) { // down, s
+                    moveDown();
+                }
+
+                if (e.keyCode == 32) {
+                    fireLazer();
+                }
+            });
+        }
+    }
+
+    $(document).bind('keydown', function(e) {
+        if (e.keyCode == 77) { // m
+            if (bgMusic.volume == 0) {
+                bgMusic.volume = 0.4;
+            } else {
+                bgMusic.volume = 0;
+            }
+        }
+
+        if (!playing) {
+            if (e.keyCode == 80) { // p
+                if (won) {
+                    window.location.replace("level2.html");
                 } else {
-                    bgMusic.volume = 0;
+                    init();
                 }
             }
-
-            if (e.keyCode == 38 || e.keyCode == 87) { // up, w
-                moveUp();
+            if (e.keyCode == 82) { // r
+                resetGame();
             }
+        }
+    });
 
-            // if (e.keyCode == 37 || e.keyCode == 65) { // left, a
-            //     moveLeft();
-            // }
-            //
-            // if (e.keyCode == 39 || e.keyCode == 68) { // right, d
-            //     moveRight();
-            // }
+    $("#play-game").click(function() {
+        init();
+    });
 
-            if (e.keyCode == 40 || e.keyCode == 83) { // down, s
-                moveDown();
-            }
+    $("#game-over").click(function() {
+        resetGame();
+    });
 
-            if (e.keyCode == 32) {
-                fireLazer();
-                // explosion("#planet"); // spacebar
-            }
-        });
-    }
+    $("#you-won").click(function() {
+        window.location.replace("level2.html");
+    });
+
 });

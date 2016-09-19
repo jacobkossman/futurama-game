@@ -203,7 +203,8 @@ p {
     bottom: 0;
 }
 
-.barrel,
+#barrel,
+#barrel2,
 .beer,
 .plus {
     z-index: 30;
@@ -213,10 +214,22 @@ p {
     z-index: 20;
 }
 
-.barrel {
+#barrel {
     position: absolute;
-    bottom: 131px;
+    bottom: 132px;
     left: 1200px;
+    display: none;
+
+    img {
+        width: 70px;
+    }
+    animation: rotating 1s linear infinite;
+}
+
+#barrel2 {
+    position: absolute;
+    bottom: 132px;
+    left: 2500px;
     display: none;
 
     img {
@@ -346,39 +359,44 @@ footer {
 }
 
 #game-over,
-#play-game {
+#play-game,
+#you-won {
     z-index: 45;
     position: absolute;
     left: 50%;
     top: 50%;
     text-align: center;
-    margin-left: -184px;
-    margin-top: -80px;
+    margin-left: -300px;
+    margin-top: -200px;
     text-transform: uppercase;
+    width: 600px;
 }
 
 #game-over {
     display: none;
-    margin-left: -272px;
 }
 
-#play {
-    text-transform: uppercase;
-    position: absolute;
-    left: 110px;
-    top: 550px;
-    color: white;
-
-    a {
-        font-size: 2.5em;
-        padding: 30px 30px 30px 45px;
-        color: white;
-        text-decoration: none;
-        background-color: $body-bg;
-        transition: background-color 350ms linear;
-
-        &:hover {
-            background-color: darken($body-bg, 5%);
-        }
-    }
+#you-won {
+    display: none;
 }
+
+// #play {
+//     text-transform: uppercase;
+//     position: absolute;
+//     left: 110px;
+//     top: 550px;
+//     color: white;
+//
+//     a {
+//         font-size: 2.5em;
+//         padding: 30px 30px 30px 45px;
+//         color: white;
+//         text-decoration: none;
+//         background-color: $body-bg;
+//         transition: background-color 350ms linear;
+//
+//         &:hover {
+//             background-color: darken($body-bg, 5%);
+//         }
+//     }
+// }

@@ -1,26 +1,33 @@
 $(document).ready(function() {
     var bgMusic = document.getElementById('bg-music'),
         score = 0,
-        lives = 3,
+        lives = 2,
         $el = $('#bender'),
         cssPosition = $el.css('position'),
-        playing = false;
+        playing = false,
+        won = false;
 
     bgMusic.volume = 0.4;
 
     function resetGame() {
-        $(".barrel").css({
+        $("#barrel").css({
             "left": "1200px"
-        }).show();
+        });
+        $("#barrel2").css({
+            "left": "2500px"
+        });
         $("#bender").css({
             "left": "100px"
         });
         $(".beer").css({
-            "left": "400px"
+            "left": "400px",
+            "opacity": 1
         });
+        $("#barrel, #barrel2, .beer").show();
         $(".shade, #game-over").hide();
 
         lives = 3;
+        score = 0;
         playing = true;
 
         $(".lives-box h3").html(lives);
@@ -42,9 +49,21 @@ $(document).ready(function() {
             }
         });
 
-        $(".barrel").show().animate({
+        $("#barrel").show().animate({
             "left": "-200px"
-        }, 7000);
+        }, 7000, "linear", function() {
+            $("#barrel").hide().css({
+                "left": "1200px"
+            });
+        });
+
+        $("#barrel2").show().animate({
+            "left": "-200px"
+        }, 11000, "linear", function() {
+            $("#barrel2").hide().css({
+                "left": "1800px"
+            });
+        });
 
         function getPositions(box) {
             var $box = $(box);
@@ -63,8 +82,18 @@ $(document).ready(function() {
             return x1[1] > x2[0] || x1[0] === x2[0] ? true : false;
         }
 
-        function checkCollisions_beer() {
-            var obj = $(".beer")[0],
+        function randomizeBeer(i) {
+            var loc = Math.floor((Math.random() * $(window).width()) + 100);
+            $(".beer").first().clone().css({
+                "left": loc,
+                "bottom": "132px",
+                "opacity": 1,
+                "display": "inline-block"
+            }).appendTo("body");
+        }
+
+        function checkCollisions_beer(i) {
+            var obj = $(".beer")[i],
                 pos = getPositions(obj),
                 pos2 = getPositions("#bender"),
                 horizontalMatch = comparePositions(pos[0], pos2[0]),
@@ -86,11 +115,16 @@ $(document).ready(function() {
                     });
                 score++;
                 $("#level-2 #hundreds").html(score);
+                if (score >= 3) {
+                    youWon();
+                } else {
+                    randomizeBeer(i++);
+                }
             }
         }
 
         function checkCollisions_barrel() {
-            var obj = $(".barrel")[0],
+            var obj = $("#barrel")[0],
                 pos = getPositions(obj),
                 pos2 = getPositions("#bender"),
                 horizontalMatch = comparePositions(pos[0], pos2[0]),
@@ -101,14 +135,34 @@ $(document).ready(function() {
                 angry();
                 if (lives > 1) {
                     lifeLost();
-                    $(".barrel").destroy();
+                    $("#barrel").hide();
                 } else {
                     lives = 0;
                     $(".lives-box h3").html(lives);
                     gameOver();
                 }
             }
+        }
 
+        function checkCollisions_barrel2() {
+            var obj = $("#barrel2")[0],
+                pos = getPositions(obj),
+                pos2 = getPositions("#bender"),
+                horizontalMatch = comparePositions(pos[0], pos2[0]),
+                verticalMatch = comparePositions(pos[1], pos2[1]),
+                match = horizontalMatch && verticalMatch;
+
+            if (match && $("#bender").attr('src') !== "assets/img/bender_angry.png") {
+                angry();
+                if (lives > 1) {
+                    lifeLost();
+                    $("#barrel2").hide();
+                } else {
+                    lives = 0;
+                    $(".lives-box h3").html(lives);
+                    gameOver();
+                }
+            }
         }
 
         function lifeLost() {
@@ -120,9 +174,15 @@ $(document).ready(function() {
         }
 
         function gameOver() {
-            console.log("game over");
             $(".shade, #game-over").show();
             playing = false;
+        }
+
+
+        function youWon() {
+            playing = false;
+            won = true;
+            $(".shade, #you-won").show();
         }
 
         function angry() {
@@ -186,7 +246,13 @@ $(document).ready(function() {
             $el.attr("src", "assets/img/bender_left.png").stop(true).animate({
                 "left": "-=50px"
             }, 400, function() {
-                checkCollisions_beer();
+                checkCollisions_beer(0);
+                if ($(".beer").length > 1) {
+                    checkCollisions_beer(1);
+                }
+                if ($(".beer").length > 2) {
+                    checkCollisions_beer(2);
+                }
                 $(this).attr("src", "assets/img/bender_standing-left.png");
             });
 
@@ -201,7 +267,13 @@ $(document).ready(function() {
             $el.attr("src", "assets/img/bender_right.png").stop().animate({
                 "left": "+=50px"
             }, 400, function() {
-                checkCollisions_beer();
+                checkCollisions_beer(0);
+                if ($(".beer").length > 1) {
+                    checkCollisions_beer(1);
+                }
+                if ($(".beer").length > 2) {
+                    checkCollisions_beer(2);
+                }
                 $(this).attr("src", "assets/img/bender_standing.png");
             });
 
@@ -232,6 +304,7 @@ $(document).ready(function() {
 
         setInterval(function() {
             checkCollisions_barrel();
+            checkCollisions_barrel2();
         }, 250);
     }
 
@@ -239,11 +312,13 @@ $(document).ready(function() {
         init();
     });
 
-
     $("#game-over").click(function() {
         resetGame();
     });
 
+    $("#you-won").click(function() {
+        window.location.replace("level1.html");
+    });
 
     $(document).bind('keydown', function(e) {
         if (e.keyCode == 77) { // m
@@ -256,11 +331,15 @@ $(document).ready(function() {
 
         if (!playing) {
             if (e.keyCode == 80) { // p
-                init();
+                if (won) {
+                    window.location.replace("level1.html");
+                } else {
+                    init();
+                }
             }
 
             if (e.keyCode == 82) { // r
-                resetGame();
+                if (!won) resetGame();
             }
         }
     });
